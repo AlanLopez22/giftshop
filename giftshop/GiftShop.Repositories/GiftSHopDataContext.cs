@@ -3,9 +3,9 @@ namespace GiftShop.Repositories
     using GiftShop.Entities;
     using System.Data.Entity;
 
-    public partial class GiftSHopModel : DbContext
+    public partial class GiftShopDataContext : DbContext
     {
-        public GiftSHopModel()
+        public GiftShopDataContext()
             : base("name=GiftSHopConnectionString")
         {
         }

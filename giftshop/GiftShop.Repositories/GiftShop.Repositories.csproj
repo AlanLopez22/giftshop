@@ -49,7 +49,7 @@
   <ItemGroup>
     <Compile Include="EntityFrameworkReadOnlyRepository.cs" />
     <Compile Include="EntityFrameworkRepository.cs" />
-    <Compile Include="GiftSHopDataContext.cs" />
+    <Compile Include="GiftShopDataContext.cs" />
     <Compile Include="IReadOnlyRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

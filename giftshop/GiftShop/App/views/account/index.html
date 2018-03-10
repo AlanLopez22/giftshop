@@ -1,0 +1,92 @@
+﻿<div class="wrap" ng-init="loginFormVisible = true; signupFormVisible = false;">
+    <div class="login-row">
+        <loading-spinner active="isLoading">
+            <div class="tab style-1">
+                <dl>
+                    <dd><a class="login-form" ng-class="{'active': loginFormVisible}" ng-click="loginFormVisible = true; signupFormVisible = false;"><i class="fa fa-2x fa-fw fa-lock"></i></a></dd>
+                    <dd><a class="signup-form" ng-class="{'active': signupFormVisible}" ng-click="loginFormVisible = false; signupFormVisible = true;"><i class="fa fa-2x fa-fw fa-edit"></i></a></dd>
+                </dl>
+                <ul>
+                    <li id="login-form" ng-show="loginFormVisible" ng-class="{'active': loginFormVisible}">
+                        <form name="loginForm" ng-submit="loginForm.$valid && login()" ng-class="{'needs-validation': !loginForm.$submitted, 'was-validated': loginForm.$submitted}" novalidate>
+                            <div class="form-group">
+                                <label class="font-weight-bold">User Name</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                    </div>
+                                    <input type="text" name="username" class="form-control" placeholder="User Name" ng-model="loginFormData.UserName" required autofocus />
+                                </div>
+                                <div class="invalid-feedback" ng-messages="loginForm.username.$error" ng-show="loginForm.$submitted && loginForm.username.$invalid">
+                                    <div ng-message="required" class="text-danger">User name is required.</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Password</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                    </div>
+                                    <input type="password" name="password" class="form-control" placeholder="Password" ng-model="loginFormData.Password" required />
+                                </div>
+                                <div class="invalid-feedback" ng-messages="loginForm.password.$error" ng-show="loginForm.$submitted && loginForm.password.$invalid">
+                                    <div ng-message="required" class="text-danger">Password is required.</div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-sign-in-alt"></i> Login
+                                </button>
+                            </div>
+                        </form>
+                    </li>
+                    <li id="signup-form" ng-show="signupFormVisible" ng-class="{'active': signupFormVisible}">
+                        <form name="signupForm" ng-submit="signupForm.$valid && signup()" ng-class="{'needs-validation': !signupForm.$submitted, 'was-validated': signupForm.$submitted}" novalidate>
+                            <div class="form-group">
+                                <label class="font-weight-bold">User Name</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                    </div>
+                                    <input type="text" name="username" class="form-control" placeholder="User Name" ng-model="signupFormData.UserName" required autofocus />
+                                </div>
+                                <div class="invalid-feedback" ng-messages="signupForm.username.$error" ng-show="signupForm.$submitted && signupForm.username.$invalid">
+                                    <div ng-message="required" class="text-danger">User name is required.</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Password</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                    </div>
+                                    <input type="password" name="password" class="form-control" placeholder="Password" ng-model="signupFormData.Password" required />
+                                </div>
+                                <div class="invalid-feedback" ng-messages="signupForm.password.$error" ng-show="signupForm.$submitted && signupForm.password.$invalid">
+                                    <div ng-message="required" class="text-danger">Password is required.</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Confirm Password</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                    </div>
+                                    <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm Password" ng-model="signupFormData.ConfirmPassword" required />
+                                </div>
+                                <div class="invalid-feedback" ng-messages="signupForm.confirmPassword.$error" ng-show="signupForm.$submitted && signupForm.confirmPassword.$invalid">
+                                    <div ng-message="required" class="text-danger">Confirm Password is required.</div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-sign-in-alt"></i> Signup
+                                </button>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </loading-spinner>
+    </div>
+</div>
