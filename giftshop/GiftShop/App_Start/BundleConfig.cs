@@ -15,7 +15,7 @@ namespace GiftShop
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            bundles.Add(new ScriptBundle("~/bundles/js").Include(
                       "~/Scripts/umd/poper.js",
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
@@ -31,6 +31,7 @@ namespace GiftShop
                     "~/Scripts/angular-messages.js",
                     "~/Scripts/angular-local-storage.js",
                     "~/Scripts/angular-toastr.tpls.js",
+                    "~/Scripts/angular-base64.js",
                     "~/Scripts/ng-file-upload-shim.js",
                     "~/Scripts/ng-file-upload.js",
                     "~/Scripts/angular-ui/ui-bootstrap-tpls.js"));
