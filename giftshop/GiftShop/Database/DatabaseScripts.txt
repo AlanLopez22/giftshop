@@ -1,0 +1,381 @@
+﻿USE [GiftShop]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_User_UserType]') AND parent_object_id = OBJECT_ID(N'[dbo].[User]'))
+ALTER TABLE [dbo].[User] DROP CONSTRAINT [FK_User_UserType]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ProductImage_Product]') AND parent_object_id = OBJECT_ID(N'[dbo].[ProductImage]'))
+ALTER TABLE [dbo].[ProductImage] DROP CONSTRAINT [FK_ProductImage_Product]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Product_Category]') AND parent_object_id = OBJECT_ID(N'[dbo].[Product]'))
+ALTER TABLE [dbo].[Product] DROP CONSTRAINT [FK_Product_Category]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_OrderDetail_Product]') AND parent_object_id = OBJECT_ID(N'[dbo].[OrderDetail]'))
+ALTER TABLE [dbo].[OrderDetail] DROP CONSTRAINT [FK_OrderDetail_Product]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_OrderDetail_Order]') AND parent_object_id = OBJECT_ID(N'[dbo].[OrderDetail]'))
+ALTER TABLE [dbo].[OrderDetail] DROP CONSTRAINT [FK_OrderDetail_Order]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Order_User]') AND parent_object_id = OBJECT_ID(N'[dbo].[Order]'))
+ALTER TABLE [dbo].[Order] DROP CONSTRAINT [FK_Order_User]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Order_Status]') AND parent_object_id = OBJECT_ID(N'[dbo].[Order]'))
+ALTER TABLE [dbo].[Order] DROP CONSTRAINT [FK_Order_Status]
+GO
+/****** Object:  Table [dbo].[UserType]    Script Date: 10/03/2018 07:30:56 a. m. ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[UserType]') AND type in (N'U'))
+DROP TABLE [dbo].[UserType]
+GO
+/****** Object:  Table [dbo].[User]    Script Date: 10/03/2018 07:30:56 a. m. ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[User]') AND type in (N'U'))
+DROP TABLE [dbo].[User]
+GO
+/****** Object:  Table [dbo].[Status]    Script Date: 10/03/2018 07:30:56 a. m. ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Status]') AND type in (N'U'))
+DROP TABLE [dbo].[Status]
+GO
+/****** Object:  Table [dbo].[ProductImage]    Script Date: 10/03/2018 07:30:56 a. m. ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ProductImage]') AND type in (N'U'))
+DROP TABLE [dbo].[ProductImage]
+GO
+/****** Object:  Table [dbo].[Product]    Script Date: 10/03/2018 07:30:56 a. m. ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Product]') AND type in (N'U'))
+DROP TABLE [dbo].[Product]
+GO
+/****** Object:  Table [dbo].[OrderDetail]    Script Date: 10/03/2018 07:30:56 a. m. ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[OrderDetail]') AND type in (N'U'))
+DROP TABLE [dbo].[OrderDetail]
+GO
+/****** Object:  Table [dbo].[Order]    Script Date: 10/03/2018 07:30:56 a. m. ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Order]') AND type in (N'U'))
+DROP TABLE [dbo].[Order]
+GO
+/****** Object:  Table [dbo].[Category]    Script Date: 10/03/2018 07:30:56 a. m. ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Category]') AND type in (N'U'))
+DROP TABLE [dbo].[Category]
+GO
+USE [master]
+GO
+/****** Object:  Database [GiftShop]    Script Date: 10/03/2018 07:30:56 a. m. ******/
+IF  EXISTS (SELECT name FROM sys.databases WHERE name = N'GiftShop')
+DROP DATABASE [GiftShop]
+GO
+/****** Object:  Database [GiftShop]    Script Date: 10/03/2018 07:30:56 a. m. ******/
+IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = N'GiftShop')
+BEGIN
+CREATE DATABASE [GiftShop]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'GiftShop', FILENAME = N'D:\BasesDatos\SQLServer\MSSQL13.SQLSERVER2016\MSSQL\DATA\GiftShop.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'GiftShop_log', FILENAME = N'D:\BasesDatos\SQLServer\MSSQL13.SQLSERVER2016\MSSQL\DATA\GiftShop_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+END
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [GiftShop].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [GiftShop] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [GiftShop] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [GiftShop] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [GiftShop] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [GiftShop] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [GiftShop] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [GiftShop] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [GiftShop] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [GiftShop] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [GiftShop] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [GiftShop] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [GiftShop] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [GiftShop] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [GiftShop] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [GiftShop] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [GiftShop] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [GiftShop] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [GiftShop] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [GiftShop] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [GiftShop] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [GiftShop] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [GiftShop] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [GiftShop] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [GiftShop] SET  MULTI_USER 
+GO
+ALTER DATABASE [GiftShop] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [GiftShop] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [GiftShop] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [GiftShop] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+USE [GiftShop]
+GO
+/****** Object:  Table [dbo].[Category]    Script Date: 10/03/2018 07:30:56 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Category]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[Category](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Description] [nvarchar](100) NOT NULL,
+ CONSTRAINT [PK_Category] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[Order]    Script Date: 10/03/2018 07:30:56 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Order]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[Order](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[UserID] [int] NULL,
+	[StatusID] [int] NOT NULL,
+	[Amount] [real] NOT NULL,
+	[CreatedOn] [datetime] NOT NULL,
+ CONSTRAINT [PK_Order] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[OrderDetail]    Script Date: 10/03/2018 07:30:56 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[OrderDetail]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[OrderDetail](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[ProductID] [int] NOT NULL,
+	[OrderID] [int] NOT NULL,
+	[Quantity] [int] NOT NULL,
+	[Price] [real] NOT NULL,
+ CONSTRAINT [PK_OrderDetail] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[Product]    Script Date: 10/03/2018 07:30:56 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Product]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[Product](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[CategoryID] [int] NOT NULL,
+	[Name] [nvarchar](100) NOT NULL,
+	[Description] [nvarchar](500) NOT NULL,
+	[IsActive] [int] NOT NULL,
+	[CreatedOn] [datetime] NOT NULL,
+	[UpdatedOn] [datetime] NOT NULL,
+ CONSTRAINT [PK_Product] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ProductImage]    Script Date: 10/03/2018 07:30:56 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ProductImage]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[ProductImage](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[ProductID] [int] NOT NULL,
+	[ImagePath] [nvarchar](500) NOT NULL,
+ CONSTRAINT [PK_ProductImage] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[Status]    Script Date: 10/03/2018 07:30:56 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Status]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[Status](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Description] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_Status] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[User]    Script Date: 10/03/2018 07:30:56 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[User]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[User](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[UserTypeID] [int] NOT NULL,
+	[UserName] [nvarchar](50) NOT NULL,
+	[Password] [nvarchar](20) NOT NULL,
+	[FirstName] [nvarchar](100) NOT NULL,
+	[LastName] [nvarchar](100) NOT NULL,
+	[Email] [nvarchar](100) NOT NULL,
+	[Street] [nvarchar](100) NOT NULL,
+	[StreetNumber] [nvarchar](100) NOT NULL,
+	[City] [nvarchar](100) NOT NULL,
+	[State] [nvarchar](100) NOT NULL,
+	[Country] [nvarchar](100) NOT NULL,
+	[IsActive] [bit] NOT NULL,
+	[CreatedOn] [datetime] NOT NULL,
+	[UpdatedOn] [datetime] NOT NULL,
+ CONSTRAINT [PK_Account] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[UserType]    Script Date: 10/03/2018 07:30:56 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[UserType]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[UserType](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Description] [nvarchar](100) NOT NULL,
+ CONSTRAINT [PK_AccountType] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET IDENTITY_INSERT [dbo].[Category] ON 
+GO
+INSERT [dbo].[Category] ([ID], [Description]) VALUES (1, N'Laptops')
+GO
+INSERT [dbo].[Category] ([ID], [Description]) VALUES (2, N'Movil Phones')
+GO
+INSERT [dbo].[Category] ([ID], [Description]) VALUES (3, N'TV')
+GO
+SET IDENTITY_INSERT [dbo].[Category] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Status] ON 
+GO
+INSERT [dbo].[Status] ([ID], [Description]) VALUES (1, N'Pending')
+GO
+INSERT [dbo].[Status] ([ID], [Description]) VALUES (2, N'Confirmed')
+GO
+SET IDENTITY_INSERT [dbo].[Status] OFF
+GO
+SET IDENTITY_INSERT [dbo].[User] ON 
+GO
+INSERT [dbo].[User] ([ID], [UserTypeID], [UserName], [Password], [FirstName], [LastName], [Email], [Street], [StreetNumber], [City], [State], [Country], [IsActive], [CreatedOn], [UpdatedOn]) VALUES (1, 1, N'alopez', N'admin', N'Alan', N'Lopez Melendrez', N'alan.lopez@live.com.mx', N'De los pinos', N'401', N'Obregon', N'Sonora', N'Mexico', 1, CAST(N'2018-03-10T08:00:00.000' AS DateTime), CAST(N'2018-03-10T08:00:00.000' AS DateTime))
+GO
+SET IDENTITY_INSERT [dbo].[User] OFF
+GO
+SET IDENTITY_INSERT [dbo].[UserType] ON 
+GO
+INSERT [dbo].[UserType] ([ID], [Description]) VALUES (1, N'Administrator')
+GO
+INSERT [dbo].[UserType] ([ID], [Description]) VALUES (2, N'User')
+GO
+SET IDENTITY_INSERT [dbo].[UserType] OFF
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Order_Status]') AND parent_object_id = OBJECT_ID(N'[dbo].[Order]'))
+ALTER TABLE [dbo].[Order]  WITH CHECK ADD  CONSTRAINT [FK_Order_Status] FOREIGN KEY([StatusID])
+REFERENCES [dbo].[Status] ([ID])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Order_Status]') AND parent_object_id = OBJECT_ID(N'[dbo].[Order]'))
+ALTER TABLE [dbo].[Order] CHECK CONSTRAINT [FK_Order_Status]
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Order_User]') AND parent_object_id = OBJECT_ID(N'[dbo].[Order]'))
+ALTER TABLE [dbo].[Order]  WITH CHECK ADD  CONSTRAINT [FK_Order_User] FOREIGN KEY([UserID])
+REFERENCES [dbo].[User] ([ID])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Order_User]') AND parent_object_id = OBJECT_ID(N'[dbo].[Order]'))
+ALTER TABLE [dbo].[Order] CHECK CONSTRAINT [FK_Order_User]
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_OrderDetail_Order]') AND parent_object_id = OBJECT_ID(N'[dbo].[OrderDetail]'))
+ALTER TABLE [dbo].[OrderDetail]  WITH CHECK ADD  CONSTRAINT [FK_OrderDetail_Order] FOREIGN KEY([OrderID])
+REFERENCES [dbo].[Order] ([ID])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_OrderDetail_Order]') AND parent_object_id = OBJECT_ID(N'[dbo].[OrderDetail]'))
+ALTER TABLE [dbo].[OrderDetail] CHECK CONSTRAINT [FK_OrderDetail_Order]
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_OrderDetail_Product]') AND parent_object_id = OBJECT_ID(N'[dbo].[OrderDetail]'))
+ALTER TABLE [dbo].[OrderDetail]  WITH CHECK ADD  CONSTRAINT [FK_OrderDetail_Product] FOREIGN KEY([ProductID])
+REFERENCES [dbo].[Product] ([ID])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_OrderDetail_Product]') AND parent_object_id = OBJECT_ID(N'[dbo].[OrderDetail]'))
+ALTER TABLE [dbo].[OrderDetail] CHECK CONSTRAINT [FK_OrderDetail_Product]
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Product_Category]') AND parent_object_id = OBJECT_ID(N'[dbo].[Product]'))
+ALTER TABLE [dbo].[Product]  WITH CHECK ADD  CONSTRAINT [FK_Product_Category] FOREIGN KEY([CategoryID])
+REFERENCES [dbo].[Category] ([ID])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Product_Category]') AND parent_object_id = OBJECT_ID(N'[dbo].[Product]'))
+ALTER TABLE [dbo].[Product] CHECK CONSTRAINT [FK_Product_Category]
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ProductImage_Product]') AND parent_object_id = OBJECT_ID(N'[dbo].[ProductImage]'))
+ALTER TABLE [dbo].[ProductImage]  WITH CHECK ADD  CONSTRAINT [FK_ProductImage_Product] FOREIGN KEY([ProductID])
+REFERENCES [dbo].[Product] ([ID])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ProductImage_Product]') AND parent_object_id = OBJECT_ID(N'[dbo].[ProductImage]'))
+ALTER TABLE [dbo].[ProductImage] CHECK CONSTRAINT [FK_ProductImage_Product]
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_User_UserType]') AND parent_object_id = OBJECT_ID(N'[dbo].[User]'))
+ALTER TABLE [dbo].[User]  WITH CHECK ADD  CONSTRAINT [FK_User_UserType] FOREIGN KEY([UserTypeID])
+REFERENCES [dbo].[UserType] ([ID])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_User_UserType]') AND parent_object_id = OBJECT_ID(N'[dbo].[User]'))
+ALTER TABLE [dbo].[User] CHECK CONSTRAINT [FK_User_UserType]
+GO
+USE [master]
+GO
+ALTER DATABASE [GiftShop] SET  READ_WRITE 
+GO
