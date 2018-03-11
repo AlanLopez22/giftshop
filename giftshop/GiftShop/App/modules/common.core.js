@@ -8,5 +8,6 @@
         'ngAnimate',
         'ui.router',
         'LocalStorageModule',
-        'base64']);
+        'base64',
+        'ngFileUpload']);
 })();

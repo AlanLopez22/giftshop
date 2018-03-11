@@ -112,6 +112,12 @@ loading-spinner.loading-spinner-active-remove {
 .loading-spinner-content {
   position: relative; }
 
+.main-content {
+  padding: 30px 15px; }
+
+.border-bottom-2 {
+  border-bottom-width: 2px !important; }
+
 .wrap {
   width: 26.4%;
   margin: 0 auto; }

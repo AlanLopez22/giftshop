@@ -9,10 +9,7 @@
                 <a class="nav-link" ui-sref="main.home()">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item" ui-sref-active="active" ng-show="userInfo.UserType.Description === 'Administrator'">
-                <a class="nav-link" ui-sref="main.manage.users()">Users</a>
-            </li>
-            <li class="nav-item" ui-sref-active="active" ng-show="userInfo.UserType.Description === 'Administrator'">
-                <a class="nav-link" ui-sref="main.manage.products()">Products</a>
+                <a class="nav-link" ui-sref="main.manage-product()">Products</a>
             </li>
         </ul>
         <ul class="navbar-nav">

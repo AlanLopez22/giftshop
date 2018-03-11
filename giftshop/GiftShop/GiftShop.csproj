@@ -180,7 +180,9 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Filters\ApiAuthenticationFilter.cs" />
     <Compile Include="Filters\AppAuthenticationFilter.cs" />
@@ -188,7 +190,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infraestructure\Extentions\EntitiesExtensions.cs" />
     <Compile Include="Infraestructure\Extentions\RequestMessageExtensions.cs" />
+    <Compile Include="Infraestructure\PaginationSet.cs" />
+    <Compile Include="Infraestructure\UploadMultipartFormProvider.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Mappings\DomainToViewModelMappingProfile.cs" />
     <Compile Include="Models\CategoryModel.cs" />
@@ -207,6 +212,8 @@
     <Content Include="App\controllers\account\accountCtrl.js" />
     <Content Include="App\controllers\home\homeCtrl.js" />
     <Content Include="App\controllers\mainCtrl.js" />
+    <Content Include="App\controllers\management\manageProductCtrl.js" />
+    <Content Include="App\controllers\management\manageProductFormCtrl.js" />
     <Content Include="App\directives\loading-spinner.js" />
     <Content Include="App\modules\common.core.js" />
     <Content Include="App\modules\common.ui.js" />
@@ -216,6 +223,8 @@
     <Content Include="App\views\account\index.html" />
     <Content Include="App\views\home\index.html" />
     <Content Include="App\views\main.html" />
+    <Content Include="App\views\management\product\form.html" />
+    <Content Include="App\views\management\product\list.html" />
     <Content Include="App\views\templates\loading-spinner.html" />
     <Content Include="App\views\templates\modal.html" />
     <Content Include="Content\angular-toastr.css" />
@@ -239,6 +248,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\noimage.png" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-aria.js" />

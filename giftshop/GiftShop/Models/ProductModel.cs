@@ -18,7 +18,9 @@ namespace GiftShop.Models
         
         public string Description { get; set; }
 
-        public int IsActive { get; set; }
+        public float Price { get; set; }
+
+        public bool IsActive { get; set; }
 
         public DateTime CreatedOn { get; set; }
 
