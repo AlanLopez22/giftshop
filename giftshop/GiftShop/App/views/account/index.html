@@ -17,7 +17,7 @@
                                     </div>
                                     <input type="text" name="username" class="form-control" placeholder="User Name" ng-model="loginFormData.UserName" required autofocus />
                                 </div>
-                                <div class="invalid-feedback" ng-messages="loginForm.username.$error" ng-show="loginForm.$submitted && loginForm.username.$invalid">
+                                <div ng-messages="loginForm.username.$error" ng-show="loginForm.$submitted && loginForm.username.$invalid">
                                     <div ng-message="required" class="text-danger">User name is required.</div>
                                 </div>
                             </div>
@@ -29,7 +29,7 @@
                                     </div>
                                     <input type="password" name="password" class="form-control" placeholder="Password" ng-model="loginFormData.Password" required />
                                 </div>
-                                <div class="invalid-feedback" ng-messages="loginForm.password.$error" ng-show="loginForm.$submitted && loginForm.password.$invalid">
+                                <div ng-messages="loginForm.password.$error" ng-show="loginForm.$submitted && loginForm.password.$invalid">
                                     <div ng-message="required" class="text-danger">Password is required.</div>
                                 </div>
                             </div>

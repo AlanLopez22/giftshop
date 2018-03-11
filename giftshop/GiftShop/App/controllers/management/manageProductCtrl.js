@@ -5,6 +5,7 @@
     manageProductCtrl.$inject = ['$scope', '$rootScope', '$state', 'toastr', 'apiService', 'modalService', 'itemsPerPage'];
 
     function manageProductCtrl($scope, $rootScope, $state, toastr, apiService, modalService, itemsPerPage) {
+        $scope.category = undefined;
         $scope.items = [];
         $scope.categories = [];
         $scope.pager = {
@@ -67,7 +68,7 @@
             apiService.get('/api/category/list/', null, function (response) {
                 $scope.categories = response.data;
                 $scope.categories.splice(0, 0, { ID: 0, Description: 'ALL' });
-                $scope.category = $scope.categories[0];
+                $scope.category = $scope.categories[0].ID;
             });
         }
     }

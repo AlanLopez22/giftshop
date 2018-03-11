@@ -40,6 +40,11 @@ namespace GiftShop.Filters
         /// <returns></returns>
         protected override bool OnAuthorizeUser(string username, string password, HttpActionContext actionContext)
         {
+            bool success = base.OnAuthorizeUser(username, password, actionContext);
+
+            if (!success)
+                return success;
+
             List<string> errors = new List<string>();
             IRepository repository = actionContext.Request.GetDataRepository();
             User user = repository.FindBy<User>(f => f.UserName.Equals(username, StringComparison.OrdinalIgnoreCase));

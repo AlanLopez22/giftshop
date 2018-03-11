@@ -19,7 +19,7 @@
                     <div class="col-3">
                         <div class="form-group">
                             <label class="font-weight-bold">Filter by Category</label>
-                            <select class="form-control" name="category" ng-model="category" ng-options="category.ID as category.Description for category in categories" ng-change="Load()">
+                            <select class="custom-select" name="category" ng-model="category" ng-options="category.ID as category.Description for category in categories" ng-change="Load()">
                                 <option value="0">ALL</option>
                             </select>
                         </div>

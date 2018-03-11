@@ -48,12 +48,12 @@ namespace GiftShop.Filters
 
             if (!_isActive)
                 return;
-
-            var identity = FetchAuthHeader(filterContext);
+            
+            var identity = FetchAuthHeader(filterContext, out List<string> errors);
 
             if (identity == null)
             {
-                ChallengeAuthRequest(filterContext);
+                filterContext.Response = filterContext.Request.CreateResponse(HttpStatusCode.Unauthorized, new { errors });
                 return;
             }
 
@@ -67,7 +67,7 @@ namespace GiftShop.Filters
         }
 
         /// <summary>
-        /// Virtual method.Can be overriden with the custom Authorization.
+        /// Virtual method. Can be overriden with the custom Authorization.
         /// </summary>
         /// <param name="user"></param>
         /// <param name="pass"></param>
@@ -98,8 +98,9 @@ namespace GiftShop.Filters
         /// Checks for autrhorization header in the request and parses it, creates user credentials and returns as BasicAuthenticationIdentity
         /// </summary>
         /// <param name="filterContext"></param>
-        protected virtual BasicAuthenticationIdentity FetchAuthHeader(HttpActionContext filterContext)
+        protected virtual BasicAuthenticationIdentity FetchAuthHeader(HttpActionContext filterContext, out List<string> errors)
         {
+            errors = new List<string>();
             string authHeaderValue = null;
             var authRequest = filterContext.Request.Headers.Authorization;
 
@@ -107,7 +108,10 @@ namespace GiftShop.Filters
                 authHeaderValue = authRequest.Parameter;
 
             if (string.IsNullOrEmpty(authHeaderValue))
+            {
+                errors.Add("Authorization scheme header value not found.");
                 return null;
+            }
 
             authHeaderValue = Encoding.Default.GetString(Convert.FromBase64String(authHeaderValue));
             var credentials = authHeaderValue.Split(':');
@@ -120,29 +124,21 @@ namespace GiftShop.Filters
                     IRepository repository = filterContext.Request.GetService<IRepository>();
                     string userName = credentials[0];
                     User user = repository.FindBy<User>(f => f.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase));
-                    basicAuthentication = new BasicAuthenticationIdentity(user.UserName, credentials[1], user.UserType.Description);
+
+                    if (user != null)
+                        basicAuthentication = new BasicAuthenticationIdentity(user.UserName, credentials[1], user.UserType.Description);
+                    else
+                        errors.Add($"User name \"{userName}\" not found.");
                 }
             }
-            catch
+            catch(Exception ex)
             {
-
+                errors.Add(ex.Message);
             }
 
             return basicAuthentication;
         }
-
-
-        /// <summary>
-        /// Send the Authentication Challenge request
-        /// </summary>
-        /// <param name="filterContext"></param>
-        private static void ChallengeAuthRequest(HttpActionContext filterContext)
-        {
-            var dnsHost = filterContext.Request.RequestUri.DnsSafeHost;
-            filterContext.Response = filterContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
-            filterContext.Response.Headers.Add("WWW-Authenticate", string.Format("Basic realm=\"{0}\"", dnsHost));
-        }
-
+        
         private bool SkipAuthorization(HttpActionContext actionContext)
         {
             return actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any()

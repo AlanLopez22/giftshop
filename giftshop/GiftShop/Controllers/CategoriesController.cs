@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace GiftShop.Controllers
 {
-    [RoutePrefix("api/category")]
+    [RoutePrefix("api/category"), AllowAnonymous]
     public class CategoriesController : BaseController
     {
         public CategoriesController(IRepository repository) : base(repository)
