@@ -1,0 +1,33 @@
+﻿<div class="form-group border-bottom border-bottom-2 border-primary">
+    <div class="card-title">
+        <h4 class="text-dark font-weight-bold">
+            <i class="fa fa-shopping-cart"></i> My Shopping Cart
+        </h4>
+    </div>
+</div>
+<loading-spinner active="isLoading">
+    <div class="card">
+        <div class="card-body">
+            <div class="w-100" ng-repeat-start="detail in order.Details | filter: { 'Name': name }">
+                <div class="d-flex justify-content-between">
+                    <img class="img-fluid" ng-src="{{detail.Product.Images[0].ImagePath}}" style="width: 100px; height: 70px;" />
+                    <div class="my-0 ml-4 mr-4 w-100 text-left">
+                        <h5 class="font-weight-bold text-truncate" ng-bind="detail.Product.Name"></h5>
+                        <h6 class="text-muted" ng-bind="detail.Product.Description"></h6>
+                    </div>
+                    <div class="text-center">
+                        <small class="text-muted text-right" ng-bind="(detail.Price * detail.Quantity) | currency:'$'"></small>
+                        <button class="btn btn-danger mt-2" ng-click="RemoveProduct(detail)"><i class="fa fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown-divider" ng-repeat-end=""></div>
+            <h3 ng-show="order.Details.lenght > 0">Empty shopping cart</h3>
+            <h6 class="text-primary text-right font-weight-bold">Amount: <span class="font-weight-normal" ng-bind="order.Amount | currency:'(USD)$'"></span></h6>
+        </div>
+        <div class="card-footer text-right">
+            <a class="btn btn-primary float-left" ui-sref="main.home">Continue shopping</a>
+            <button class="btn btn-success" ng-click="ConfirmOrder()">Confirm Order</button>
+        </div>
+    </div>
+</loading-spinner>

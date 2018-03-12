@@ -1,0 +1,70 @@
+﻿<div class="row align-items-center">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group border-bottom border-bottom-2 border-primary">
+                    <div class="card-title">
+                        <h4 class="text-dark font-weight-bold">
+                            <i class="fa fa-box"></i> Product List
+                        </h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Filter by Name</label>
+                            <input type="text" class="form-control" name="name" placeholder="Filter by Name" ng-model="name" />
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Filter by Category</label>
+                            <select class="custom-select" name="category" ng-model="category" ng-options="category.ID as category.Description for category in categories" ng-change="Load()">
+                                <option value="0">ALL</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6 text-right">
+                        <button class="btn btn-primary" ng-click="Load()"><i class="fa fa-search"></i> Load</button>
+                        <button class="btn btn-primary" ui-sref="main.manage-product.form({id:-1})"><i class="fa fa-plus"></i> Add</button>
+                    </div>
+                </div>
+                <loading-spinner active="isLoading">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Is Active</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in items | filter: { 'Name': name }">
+                                <td ng-bind="row.Name"></td>
+                                <td ng-bind="row.Description"></td>
+                                <td ng-bind="row.Category.Description"></td>
+                                <td ng-bind="row.IsActive"></td>
+                                <td>
+                                    <button class="btn btn-warning" ui-sref="main.manage-product.form({id:row.ID})">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-danger" ng-click="Delete(row)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr ng-show="items && items.lenght > 0">
+                                <td colspan="5"><h4>There are not products added</h4></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </loading-spinner>
+            </div>
+            <div class="card-footer" ng-show="pager.TotalItems > pager.ItemsPerPage">
+                <ul uib-pagination class="pagination-sm" total-items="pager.TotalItems" ng-model="pager.PageNumber" items-per-page="pager.ItemsPerPage" ng-change="Load(pager.PageNumber)" boundary-links="true" force-ellipses="true"></ul>
+            </div>
+        </div>
+    </div>
+</div>

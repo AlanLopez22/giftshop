@@ -1,0 +1,74 @@
+﻿<loading-spinner active="isLoading">
+    <form ng-submit="form.$valid && Save()" name="form" ng-class="{'needs-validation': !form.$submitted, 'was-validated': form.$submitted}" novalidate>
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group border-bottom border-bottom-2 border-primary">
+                    <div class="card-title">
+                        <h4 class="text-dark font-weight-bold">
+                            <i class="fa fa-box"></i> Product Information
+                        </h4>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="font-weight-bold">Name</label>
+                    <input type="text" class="form-control" placeholder="Name" name="name" ng-model="formData.Name" required />
+                    <div class="invalid-feedback" ng-messages="form.name.$error" ng-show="form.$submitted && form.name.$invalid">
+                        <div ng-message="required" class="text-danger">Name is required.</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="font-weight-bold">Description</label>
+                    <textarea rows="4" class="form-control" placeholder="Description" name="description" ng-model="formData.Description" required></textarea>
+                    <div class="invalid-feedback" ng-messages="form.description.$error" ng-show="form.$submitted && form.description.$invalid">
+                        <div ng-message="required" class="text-danger">Description is required.</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="font-weight-bold">Price</label>
+                    <input type="text" class="form-control" placeholder="Price" name="price" ng-model="formData.Price" required />
+                    <div class="invalid-feedback" ng-messages="form.price.$error" ng-show="form.$submitted && form.price.$invalid">
+                        <div ng-message="required" class="text-danger">Price is required.</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select class="form-control" name="category" ng-model="formData.CategoryID" ng-options="category.ID as category.Description for category in categories" required></select>
+                    <div ng-messages="form.category.$error" ng-show="form.$submitted && form.category.$invalid">
+                        <div ng-message="required" class="text-danger">Category is required.</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="isactive" name="isactive" ng-model="formData.IsActive"/>
+                        <label class="custom-control-label" for="isactive">Is Active</label>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group border-bottom border-bottom-2 border-primary">
+                    <div class="card-title">
+                        <h4 class="text-dark font-weight-bold">
+                            <i class="fa fa-image"></i> Product Images
+                        </h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2" ng-repeat="image in formData.Images">
+                        <div class="card">
+                            <img class="img-fluid img-thumbnail" ngf-thumbnail="image.File || image.ImagePath" alt="image-number-{{image.ID}}" style="height:150px" />
+                            <div class="card-footer text-center">
+                                <button type="button" class="btn btn-primary" role="button" name="file" ngf-select="addImage(image, $file)" ngf-pattern="'image/*'" ngf-accept="'image/*'">
+                                    <i class="fa fa-search"></i> Search
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
+                <button type="button" class="btn btn-danger" ng-click="Cancel()"><i class="fa fa-ban"></i> Cancel</button>
+            </div>
+        </div>
+    </form>
+</loading-spinner>
