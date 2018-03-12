@@ -25,6 +25,7 @@
 
             apiService.post('./api/account/authenticate', null, config, function (response) {
                 membershipService.saveCredentials($scope.loginFormData, response.data);
+                $rootScope.getOrder();
                 $scope.displayUserInfo();
                 redirectToPage();
             });
@@ -50,7 +51,12 @@
 
         function redirectToPage() {
             if ($scope.userInfo && $scope.userInfo.IsUserLogged) {
-                $state.go('main.home');
+                if ($rootScope.previousState) {
+                    $state.go($rootScope.previousState, $rootScope.previousStateParams);
+                }
+                else {
+                    $state.go('main.home');
+                }
             }
         }
     }

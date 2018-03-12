@@ -43,22 +43,21 @@ namespace GiftShop.Filters
         /// <param name="filterContext"></param>
         public override void OnAuthorization(HttpActionContext filterContext)
         {
-            if (SkipAuthorization(filterContext))
-                return;
-
-            if (!_isActive)
-                return;
-            
             var identity = FetchAuthHeader(filterContext, out List<string> errors);
 
             if (identity == null)
             {
-                filterContext.Response = filterContext.Request.CreateResponse(HttpStatusCode.Unauthorized, new { errors });
+                if (!SkipAuthorization(filterContext))
+                    filterContext.Response = filterContext.Request.CreateResponse(HttpStatusCode.Unauthorized, new { errors });
+
                 return;
             }
 
             var genericPrincipal = new GenericPrincipal(identity, null);
             Thread.CurrentPrincipal = genericPrincipal;
+            
+            if (SkipAuthorization(filterContext))
+                return;
 
             if (!OnAuthorizeUser(identity.Name, identity.Password, filterContext))
                 return;
@@ -108,10 +107,7 @@ namespace GiftShop.Filters
                 authHeaderValue = authRequest.Parameter;
 
             if (string.IsNullOrEmpty(authHeaderValue))
-            {
-                errors.Add("Authorization scheme header value not found.");
                 return null;
-            }
 
             authHeaderValue = Encoding.Default.GetString(Convert.FromBase64String(authHeaderValue));
             var credentials = authHeaderValue.Split(':');

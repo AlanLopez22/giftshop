@@ -29,36 +29,38 @@
                         <button class="btn btn-primary" ui-sref="main.manage-product.form({id:-1})"><i class="fa fa-plus"></i> Add</button>
                     </div>
                 </div>
-                <table class="table table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Category</th>
-                            <th>Is Active</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="row in items | filter: { 'Name': name }">
-                            <td ng-bind="row.Name"></td>
-                            <td ng-bind="row.Description"></td>
-                            <td ng-bind="row.Category.Description"></td>
-                            <td ng-bind="row.IsActive"></td>
-                            <td>
-                                <button class="btn btn-warning" ui-sref="main.manage-product.form({id:row.ID})">
-                                    <i class="fa fa-edit"></i>
-                                </button>
-                                <button class="btn btn-danger" ng-click="Delete(row)">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr ng-show="items && items.lenght > 0">
-                            <td colspan="5"><h4>There are not products added</h4></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <loading-spinner active="isLoading">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Is Active</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in items | filter: { 'Name': name }">
+                                <td ng-bind="row.Name"></td>
+                                <td ng-bind="row.Description"></td>
+                                <td ng-bind="row.Category.Description"></td>
+                                <td ng-bind="row.IsActive"></td>
+                                <td>
+                                    <button class="btn btn-warning" ui-sref="main.manage-product.form({id:row.ID})">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-danger" ng-click="Delete(row)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr ng-show="items && items.lenght > 0">
+                                <td colspan="5"><h4>There are not products added</h4></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </loading-spinner>
             </div>
             <div class="card-footer" ng-show="pager.TotalItems > pager.ItemsPerPage">
                 <ul uib-pagination class="pagination-sm" total-items="pager.TotalItems" ng-model="pager.PageNumber" items-per-page="pager.ItemsPerPage" ng-change="Load(pager.PageNumber)" boundary-links="true" force-ellipses="true"></ul>

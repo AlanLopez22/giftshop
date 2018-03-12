@@ -61,6 +61,34 @@
                     roles: ['Administrator', 'User']
                 }
             })
+            .state("main.mycart", {
+                url: '/my-cart',
+                views: {
+                    'content@main': {
+                        templateUrl: './App/views/home/my-cart.html?' + new Date().getMilliseconds(),
+                        controller: "myCartCtrl"
+                    }
+                },
+                data: {
+                    authorization: false,
+                    memory: false,
+                    roles: ['Administrator', 'User']
+                }
+            })
+            .state("main.productdetail", {
+                url: '/product/:id',
+                views: {
+                    'content@main': {
+                        templateUrl: './App/views/home/product-detail.html?' + new Date().getMilliseconds(),
+                        controller: "productDetailCtrl"
+                    }
+                },
+                data: {
+                    authorization: false,
+                    memory: false,
+                    roles: ['Administrator', 'User']
+                }
+            })
             .state("main.manage-product", {
                 url: '/manage-product',
                 views: {

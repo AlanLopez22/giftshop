@@ -15,10 +15,11 @@
         function saveCredentials(user, response) {
             var membershipData = $base64.encode(user.UserName + ':' + user.Password);
 
-            $rootScope.repository = {
-                currentUser: response.user,
-                Authdata: membershipData
-            };
+            if (!$rootScope.repository)
+                $rootScope.repository = {};
+
+            $rootScope.repository.currentUser = response.user;
+            $rootScope.repository.Authdata = membershipData;
 
             $http.defaults.headers.common['Authorization'] = 'Basic ' + membershipData;
             localStorageService.set('repository', $rootScope.repository);

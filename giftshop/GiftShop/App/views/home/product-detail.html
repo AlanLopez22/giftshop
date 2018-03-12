@@ -1,0 +1,29 @@
+﻿<loading-spinner active="isLoading">
+    <div class="row product-detail" ng-init="Load()">
+        <div class="col-8">            
+            <div class="row">
+                <div class="col-4 border">
+                    <div class="images">
+                        <img class="img-fluid mb-2" ng-src="{{image.ImagePath}}" alt="{{image.ID}}" ng-repeat="image in product.Images" ng-click="SelectImage(image)" />
+                    </div>
+                </div>
+                <div class="col-8">
+                    <img class="img-fluid align-top" ng-src="{{selectedImage.ImagePath}}" alt="{{image.ID}}" />
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <h3 ng-bind="product.Name"></h3>
+            <p class="mt-2" ng-bind="product.Description"></p>
+            <p class="text-primary mt-2" ng-bind="product.Price | currency:'USD$'"></p>
+            <div class="form-group">
+                <label>Quantity</label>
+                <input type="text" class="form-control" ng-model="quantity" ng-change="updateAmount(quantity)"/>
+            </div>
+            <div class="form-group">
+                <p class="text-primary"><span class="font-weight-bold">Amount: </span><span ng-bind="amount | currency:'USD$'"></span></p>
+            </div>
+            <button class="btn btn-outline-primary" ng-click="AddToCart()"><i class="fa fa-cart-plus"></i> Add To Cart</button>
+        </div>
+    </div>
+</loading-spinner>

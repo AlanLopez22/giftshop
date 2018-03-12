@@ -182,6 +182,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Filters\ApiAuthenticationFilter.cs" />
@@ -211,6 +212,8 @@
     <Content Include="App\app.js" />
     <Content Include="App\controllers\account\accountCtrl.js" />
     <Content Include="App\controllers\home\homeCtrl.js" />
+    <Content Include="App\controllers\home\myCartCtrl.js" />
+    <Content Include="App\controllers\home\productDetailCtrl.js" />
     <Content Include="App\controllers\mainCtrl.js" />
     <Content Include="App\controllers\management\manageProductCtrl.js" />
     <Content Include="App\controllers\management\manageProductFormCtrl.js" />
@@ -222,6 +225,8 @@
     <Content Include="App\services\modalService.js" />
     <Content Include="App\views\account\index.html" />
     <Content Include="App\views\home\index.html" />
+    <Content Include="App\views\home\my-cart.html" />
+    <Content Include="App\views\home\product-detail.html" />
     <Content Include="App\views\main.html" />
     <Content Include="App\views\management\product\form.html" />
     <Content Include="App\views\management\product\list.html" />

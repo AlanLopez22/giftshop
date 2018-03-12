@@ -6,5 +6,34 @@
 .border-bottom-2 {
     border-bottom-width: 2px !important;
 }
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+.products {
+    & .card-img-top {
+        height: 225px;
+    }
+}
 
+.product-detail {
+    & .images {
+        overflow-y: auto;
+        max-height: 500px;
+    }
+}
+
+.navbar-nav {
+    & .nav-item {
+        & a.my-cart {
+            & .fa {
+                font-size: 25px;
+            }
+
+            & .orders-count {
+                top: -20px !important;
+                font-size: 1.5em;
+            }
+        }
+    }
+}
 @import 'account.scss';

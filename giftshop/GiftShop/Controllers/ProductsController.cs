@@ -37,7 +37,20 @@ namespace GiftShop.Controllers
             });
         }
 
-        [Route("getByID/{id:int=0}/"), HttpGet]
+        [Route("listactives/{categoryID:int=0}/{name?}/"), HttpGet, AllowAnonymous]
+        public async Task<HttpResponseMessage> ListActives(HttpRequestMessage request, int categoryID, string name = null)
+        {
+            return await CreateHttpResponseAsync(request, async () =>
+            {
+                HttpResponseMessage response = null;
+                IEnumerable<Product> list = await repository.ListByAsync<Product>(w => w.IsActive && (categoryID == 0 || w.CategoryID == categoryID) && (string.IsNullOrEmpty(name) || w.Name.ToUpper().Contains(name.ToUpper())));
+                IEnumerable<ProductModel> listModel = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductModel>>(list.OrderBy(o => o.Name));
+                response = request.CreateResponse(HttpStatusCode.OK, listModel);
+                return await Task.FromResult(response);
+            });
+        }
+
+        [Route("getByID/{id:int=0}/"), HttpGet, AllowAnonymous]
         public async Task<HttpResponseMessage> GetByID(HttpRequestMessage request, int id)
         {
             return await CreateHttpResponseAsync(request, async () =>

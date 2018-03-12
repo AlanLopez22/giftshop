@@ -118,6 +118,23 @@ loading-spinner.loading-spinner-active-remove {
 .border-bottom-2 {
   border-bottom-width: 2px !important; }
 
+.box-shadow {
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05); }
+
+.products .card-img-top {
+  height: 225px; }
+
+.product-detail .images {
+  overflow-y: auto;
+  max-height: 500px; }
+
+.navbar-nav .nav-item a.my-cart .fa {
+  font-size: 25px; }
+
+.navbar-nav .nav-item a.my-cart .orders-count {
+  top: -20px !important;
+  font-size: 1.5em; }
+
 .wrap {
   width: 26.4%;
   margin: 0 auto; }
@@ -236,3 +253,4 @@ loading-spinner.loading-spinner-active-remove {
   .top-grid2 {
     margin-left: 9px;
     width: 69%; } }
+
